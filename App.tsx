@@ -8,6 +8,7 @@ import {
 import { SafeAreaProvider } from "react-native-safe-area-context";
 
 import MainRoutes from "./src/navigation";
+import AppProviders from "./src/components/AppProvider";
 
 export default function App() {
   const [isFontsLoaded] = useFonts({
@@ -22,8 +23,10 @@ export default function App() {
 
   return (
     <SafeAreaProvider>
-      <MainRoutes />
-      <StatusBar style="inverted" />
+      <AppProviders>
+        <MainRoutes />
+        <StatusBar style="inverted" />
+      </AppProviders>
     </SafeAreaProvider>
   );
 }
