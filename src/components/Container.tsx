@@ -11,6 +11,7 @@ const Container: React.FC<IScrollViewProps> = ({ children, ...rest }) => {
       px="4"
       bg="gray.700"
       showsVerticalScrollIndicator={false}
+      contentContainerStyle={{ flexGrow: 1 }}
       {...rest}
     >
       <Header safeArea />

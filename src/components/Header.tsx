@@ -1,22 +1,28 @@
 import React from "react";
 import type { IFlexProps } from "native-base";
-import { Flex, Text } from "native-base";
+import { Heading, useColorMode, Flex } from "native-base";
 
 // export const HEADER_TEST_ID = "header";
 
 const Header = (props: IFlexProps) => {
+  const { colorMode } = useColorMode();
   return (
     <Flex
       //   testID={HEADER_TEST_ID}
       justify="center"
       align="center"
       height="56"
+      shadow={1}
       {...props}
     >
       <Flex direction="row">
-        <Text fontSize="4xl" color="primary.500" fontWeight="bold">
+        <Heading
+          size="3xl"
+          p={4}
+          color={colorMode === "dark" ? "gray.100" : "trueGray.700"}
+        >
           Weatherly
-        </Text>
+        </Heading>
       </Flex>
     </Flex>
   );
