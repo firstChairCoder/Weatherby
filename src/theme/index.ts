@@ -2,7 +2,7 @@ import { extendTheme } from "native-base";
 
 export default extendTheme({
   fontConfig: {
-    Lato: {
+    Montserrat: {
       100: {
         normal: "MontserratLight"
       },

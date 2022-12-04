@@ -1,11 +1,13 @@
 import { StatusBar } from "expo-status-bar";
-import { StyleSheet, Text, View } from "react-native";
 import {
   useFonts,
   Montserrat_300Light,
   Montserrat_400Regular,
   Montserrat_700Bold
 } from "@expo-google-fonts/montserrat";
+import { SafeAreaProvider } from "react-native-safe-area-context";
+
+import MainRoutes from "./src/navigation";
 
 export default function App() {
   const [isFontsLoaded] = useFonts({
@@ -19,18 +21,9 @@ export default function App() {
   }
 
   return (
-    <View style={styles.container}>
-      <Text>Open up App.tsx to start working on your app!</Text>
+    <SafeAreaProvider>
+      <MainRoutes />
       <StatusBar style="inverted" />
-    </View>
+    </SafeAreaProvider>
   );
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: "#fff",
-    alignItems: "center",
-    justifyContent: "center"
-  }
-});
