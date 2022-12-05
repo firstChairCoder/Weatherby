@@ -2,7 +2,7 @@ import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import React from "react";
 
-import { LocationAccessScreen } from "../screens";
+import { LocationAccessScreen, WeatherDetailsScreen } from "../screens";
 import type { RootStackParamList } from "../typings";
 import { Route } from "../typings";
 
@@ -13,6 +13,7 @@ const MainRoutes = () => {
     <NavigationContainer>
       <Navigator screenOptions={{ headerShown: false }}>
         <Screen name={Route.LOCATION_ACCESS} component={LocationAccessScreen} />
+        <Screen name={Route.WEATHER_DETAILS} component={WeatherDetailsScreen} />
       </Navigator>
     </NavigationContainer>
   );
