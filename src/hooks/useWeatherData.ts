@@ -8,7 +8,7 @@ export type GetWeatherDataResponse = {
   weather: WeatherData[];
 };
 
-interface WeatherDataProps {
+export interface WeatherDataProps {
   latitude: number;
   longitude: number;
 }

@@ -44,3 +44,9 @@ export type WeatherData = {
   description: string;
   icon: WeatherIcons;
 };
+
+export type ForecastData = {
+  dt_txt: string;
+  main: MainData;
+  weather: WeatherData[];
+};

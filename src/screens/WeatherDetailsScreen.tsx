@@ -3,9 +3,13 @@ import type { LocationObjectCoords } from "expo-location";
 import { reverseGeocodeAsync, getCurrentPositionAsync } from "expo-location";
 import { useToast } from "native-base";
 import React, { useCallback, useEffect, useMemo, useState } from "react";
+import { RefreshControl } from "react-native";
 
 import { InfoCard } from "../components/Cards";
 import Container from "../components/Container";
+import FloatingActionButton from "../components/FAB";
+import ForecastLists from "../components/Forecast/ForecastLists";
+import useForecastData from "../hooks/useForecastData";
 import useWeatherData from "../hooks/useWeatherData";
 import { capitalize, formatTemp } from "../utils";
 
@@ -18,6 +22,7 @@ const WeatherDetailsScreen = () => {
   const [locationLines, setLocationLines] = useState<string[]>([]);
 
   const [currentWeather, isCurrentWeatherLoading] = useWeatherData(coords);
+  const [forecast, isForecastLoading] = useForecastData(coords);
   const currentWeatherLines = useMemo(() => {
     const lines: string[] = [];
 
@@ -87,23 +92,52 @@ const WeatherDetailsScreen = () => {
     loadLocation();
   }, []);
 
-  return (
-    <Container>
-      <InfoCard
-        label={"Your Location"}
-        iconName={"map-marker"}
-        lines={locationLines}
-        isLoading={isLocationLoading}
-      />
+  async function handleRefreshData() {
+    loadLocation(() => {
+      if (!toast.isActive("success-toast")) {
+        toast.show({
+          id: "success-toast",
+          title: "Data successfully updated!",
+          placement: "top",
+          variant: "solid"
+        });
+      }
+    });
+  }
 
-      <InfoCard
-        my="8"
-        iconName={"map-marker"}
-        label={"Weather"}
-        lines={currentWeatherLines}
-        isLoading={isLocationLoading || isCurrentWeatherLoading}
-      />
-    </Container>
+  return (
+    <>
+      <Container
+        refreshControl={
+          <RefreshControl
+            refreshing={isLocationLoading}
+            onRefresh={handleRefreshData}
+          />
+        }
+      >
+        <InfoCard
+          label={"Your Location"}
+          iconName={"map-marker"}
+          lines={locationLines}
+          isLoading={isLocationLoading}
+        />
+
+        <InfoCard
+          my="8"
+          iconName={"map-marker"}
+          label={"Weather"}
+          lines={currentWeatherLines}
+          isLoading={isLocationLoading || isCurrentWeatherLoading}
+        />
+
+        <ForecastLists
+          data={forecast}
+          isLoading={isLocationLoading || isForecastLoading}
+        />
+      </Container>
+
+      <FloatingActionButton onPress={handleRefreshData} />
+    </>
   );
 };
 
